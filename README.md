@@ -1,57 +1,60 @@
-# ARP-Attack-and-Network-Sniffing
-# Explore Network Sniffing and ARP Attacks
+# ARP Spoofing and Network Sniffing Experiment
+## AIM
 
-# AIM:
+To perform ARP spoofing attack simulation and observe network sniffing behavior using Ettercap and Wireshark in a controlled LAN environment.
 
-To explore network sniffing and ARP Attacks
+## TOOLS USED
+Kali Linux
 
-## STEPS:
+Ettercap (GUI)
 
-### Step 1:
+Wireshark
 
-Install kali linux either in partition or virtual box or in live mode
+Two virtual machines (Target systems in same network: 10.0.2.2 and 10.0.2.3)
+## PROCEDURE / STEPS
+### Step 1: Network Setup
 
-### Step 2:
+Two systems (victims) were connected in the same virtual network:
 
-Investigate on the various categories of tools as follows:
+Target 1: 10.0.2.2
+Target 2: 10.0.2.3
+### Step 2: Host Discovery using Ettercap
 
+Ettercap was launched and the network was scanned to identify active hosts in the LAN.
 
-### Step 3:
-Open terminal and try execute some kali linux commands
+### Step 3: Selecting Targets
 
-## ARP Attacks:  
-ARP spoofing: A hacker sends fake ARP packets that link an attacker's MAC address with an IP of a computer already on the LAN. 
-Boot kali and Windows7 virtual machines.
-In windows 7 give the command arp -a
-## OUTPUT:
+Both detected hosts were added as:
 
+Target 1
+Target 2
+### Step 4: ARP Poisoning Attack
 
-From kali linux issue the command :
-sudo arpspoof -i eth0 -t <target system> <gateway>
-## OUTPUT:
+ARP spoofing (MITM simulation) was initiated so that traffic between both targets is intercepted by the attacker machine.
 
+### Step 5: Packet Monitoring
 
- dsniff:
+Wireshark was used to capture and analyze ARP packets to observe spoofing behavior and network anomalies.
 
+## OBSERVATIONS FROM SCREENSHOTS
+### Screenshot 1: Ettercap Host Discovery
+<img width="1918" height="1068" alt="Screenshot 2026-05-13 114621" src="https://github.com/user-attachments/assets/d9b250af-40f0-490b-a14f-91fa2253e3fa" />
 
+### Explanation:
+This screenshot shows Ettercap detecting active devices in the local network. Two hosts were identified with IP addresses 10.0.2.2 and 10.0.2.3, both mapped to MAC address 52:54:00:12:35:00. These hosts are added to the host list, meaning Ettercap has successfully scanned the LAN and identified reachable systems for further attack simulation.
+The system is now intercepting communication between these two hosts by sending fake ARP replies. This makes both systems believe the attacker’s MAC address is the correct destination.
+### Understanding:
+This step confirms that both target machines are active in the same network and can communicate, which is necessary for ARP spoofing to work.This is the core phase of a Man-in-the-Middle (MITM) attack where traffic between two systems is silently redirected through the attacker machine.
 
+### Screenshot 2: Wireshark ARP Packet Capture
+<img width="1918" height="1038" alt="image (1)" src="https://github.com/user-attachments/assets/fb995404-e33e-4f62-9391-b1b2e04d241e" />
 
+### Explanation:
+This screenshot shows Wireshark capturing ARP traffic on interface eth0. Multiple ARP reply packets are visible where IP 10.0.2.2 is mapped to MAC 08:00:27:b1:79:92. It also shows warnings like “duplicate use of IP detected”, which is a clear sign of ARP spoofing activity.
 
+### Understanding:
+These duplicate ARP entries confirm that the network is receiving conflicting MAC address information, which is typical during ARP poisoning attacks.
 
-In Metasploit open the ftp console as below. Also you can try other ftp websites ftp.vim.org
-## OUTPUT:
+## RESULT
 
-
-
-
-In Kali issue the following commands:
-sudo dsnifff
-## OUTPUT:
-
-
-
-Invoke the wireshark and examine the various menus  and controls of the tool:
-
-
-## RESULT:
-The kali linux tools for ARP Attack and Network Sniffing were identified successfully
+The ARP spoofing and network sniffing experiment was successfully performed using Ettercap and Wireshark. The attack was simulated in a controlled environment, and ARP poisoning behavior was observed clearly through packet analysis.
